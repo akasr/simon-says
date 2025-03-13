@@ -1,4 +1,6 @@
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -6,4 +8,39 @@
 
 body {
   font-family: "Press Start 2P", system-ui;
+  background-color: rgb(29, 28, 28);
+}
+
+header {
+  color: red;
+  padding: 1rem;
+}
+h1,
+h2 {
+  text-align: center;
+  padding: 1rem;
+}
+.state {
+  display: grid;
+  grid-template-areas: "score lives" "memory memory" "timer timer" "level level";
+  gap: 1rem;
+}
+h2 {
+  grid-area: level;
+  border-bottom: 10px solid red;
+}
+.score {
+  grid-area: score;
+}
+.lives {
+  grid-area: lives;
+  margin-left: auto;
+}
+.memory {
+  color: green;
+  grid-area: memory;
+}
+.timer {
+  grid-area: timer;
+  color: green;
 }
