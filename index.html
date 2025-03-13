@@ -20,19 +20,41 @@
     <script src="app.js" defer></script>
   </head>
   <body>
+    <!-- Status Board -->
     <header>
       <h1>Simon Says</h1>
       <div class="state">
-        <div class="score">Score <span id="score-value">0</span></div>
-        <div class="lives"><span id="lives-value">🫀</span></div>
+        <div class="flex">
+          <div class="score">Score <span id="score-value">0</span></div>
+          <div class="lives"><span id="lives-value">🫀</span></div>
+        </div>
         <div class="memory">
           Memory Time <span id="memory-time">00:40</span>
         </div>
         <div class="timer">
           Time Left: <span id="timer-value">Infinity</span>
         </div>
-        <h2>Level 1</h2>
+        <h2>Level <span id="level-value">1</span></h2>
       </div>
+      <button class="action" id="action">Start</button>
     </header>
+
+    <!-- Playboard -->
+    <main>
+      <div class="memory-container" id="memoryContainer">
+      </div>
+      <div class="hint" id="hint">
+        Clue: <span id="hint-value">🤔</span>
+      </div>
+      <div class="overlay" id="overlay">
+        <div class="message" id="message"></div>
+      </div>
+      <div class="playboard">
+        <div class="tile green" id="green"></div>
+        <div class="tile red" id="red"></div>
+        <div class="tile yellow" id="yellow"></div>
+        <div class="tile blue" id="blue"></div>
+      </div>
+    </main>
   </body>
 </html>

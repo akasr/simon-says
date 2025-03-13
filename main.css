@@ -5,12 +5,12 @@
   margin: 0;
   padding: 0;
 }
-
 body {
   font-family: "Press Start 2P", system-ui;
   background-color: rgb(29, 28, 28);
 }
 
+/* Score Board */
 header {
   color: red;
   padding: 1rem;
@@ -20,27 +20,100 @@ h2 {
   text-align: center;
   padding: 1rem;
 }
-.state {
-  display: grid;
-  grid-template-areas: "score lives" "memory memory" "timer timer" "level level";
-  gap: 1rem;
+.flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-h2 {
-  grid-area: level;
+.state div {
+  padding: 0.5rem 0;
+}
+.memory, .timer {
+  color: green;
+}
+.action {
+  display: block;
+  background-color: yellow;
+  padding: 1rem;
+  width: 50%;
+  font-family: inherit;
+  margin: 1rem auto;
+  font-size: 1.5rem;
+}
+
+
+/* Memory  */
+.memory-container {
+  padding: 0.5rem;
+  background-color: black;
+  height: 5rem;
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: scroll;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  }
+.memory-container::-webkit-scrollbar {
+    display: none; /* Safari and Chrome */
+}
+.memory-tile {
+  width: 4rem;
+  height: 4rem;
+}
+
+/* Hints */
+.hint {
+  padding: 1rem;
+  color: yellow;
+  text-align: center;
+  margin: 1rem;
+}
+
+/* Message */
+.message {
+  padding: 1rem;
+  color: yellow;
+  text-align: center;
+  margin: 1rem;
+  font-size: 3rem;
+}
+
+/* Playboard */
+.playboard {
+  margin: 1rem;
+  border-top: 10px solid red;
   border-bottom: 10px solid red;
+  grid-template-columns: auto auto;
+  gap: 1rem;
+  justify-content: center;
+  align-content: center;
+  display: none;
 }
-.score {
-  grid-area: score;
+.tile {
+  width: 5rem;
+  height: 5rem;
+  background-color: white;
+  border: 10px solid transparent;
 }
-.lives {
-  grid-area: lives;
-  margin-left: auto;
+.red {
+  background-color: red;
 }
-.memory {
-  color: green;
-  grid-area: memory;
+.green {
+  background-color: green;
 }
-.timer {
-  grid-area: timer;
-  color: green;
+.blue {
+  background-color: blue;
+}
+.yellow {
+  background-color: yellow;
+}
+
+@media only screen and (min-width: 768px) {
+  .playboard, header, .memory-container {
+    width: 50%;
+    margin: auto;
+  }
+  .playboard {
+    border: 10px solid red;
+  }
 }
