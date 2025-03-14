@@ -49,13 +49,8 @@ h2 {
   height: 5rem;
   display: flex;
   gap: 0.5rem;
-  overflow-x: scroll;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  flex-wrap: wrap;
   }
-.memory-container::-webkit-scrollbar {
-    display: none; /* Safari and Chrome */
-}
 .memory-tile {
   width: 4rem;
   height: 4rem;
