@@ -1,8 +1,12 @@
 import State from "./modules/State.js";
 import { $, $$ } from "./modules/shortcut.js";
 import { adjustPlayboardHeight, showHideMemory } from "./modules/ui.js";
-import { startGame, checkUserInput, getState, updateMemTime } from "./modules/gameLogic.js";
-
+import {
+  startGame,
+  checkUserInput,
+  getState,
+  updateMemTime,
+} from "./modules/gameLogic.js";
 
 // Initialize global object
 window.app = {};
@@ -17,8 +21,8 @@ window.onresize = adjustPlayboardHeight;
 const actionBtn = $("#action");
 actionBtn.on("click", (e) => {
   e.target.style.visibility = "hidden";
-  $('.playboard').style.display = "grid";
-  $('.message').textContent = "";
+  $(".playboard").style.display = "grid";
+  $(".message").textContent = "";
   scrollBy(0, 1000);
   startGame();
 });
@@ -38,7 +42,7 @@ tiles.forEach((tile) => {
 $("#memoryContainer").on("click", function () {
   const state = getState();
   state.isMemViewActive = !state.isMemViewActive;
-  if(state.isMemViewActive && state.memViewTime > 0){
+  if (state.isMemViewActive && state.memViewTime > 0) {
     state.memoryInterval = setInterval(updateMemTime, 1000);
   } else {
     clearInterval(state.memoryInterval);

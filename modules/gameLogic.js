@@ -4,8 +4,9 @@ import {
   updateLives,
   updateLevel,
   updateScore,
-  updateMemoryTimer,
   showHideMemory,
+  updateInputTimerUI,
+  updateMemoryTimerUI,
 } from "./ui.js";
 import { $ } from "./shortcut.js";
 
@@ -25,7 +26,7 @@ const resetState = () => {
   state.memoryInterval = null;
   state.inputInterval = null;
   state.memViewTime = 40000;
-  state.inputTime = Infinity;
+  state.inputTime = 59000;
   state.isStrict = false;
   state.boxPositions = {};
   state.currFlashMode = null;
@@ -33,6 +34,8 @@ const resetState = () => {
   updateLevel(state.level);
   updateScore(state.score);
   updateLives(state.lives);
+  updateMemoryTimerUI();
+  updateInputTimerUI();
 };
 
 // Start the game
@@ -53,6 +56,7 @@ export const checkUserInput = () => {
     if (!state.lives) {
       endGame();
       clearInterval(state.memoryInterval);
+      clearInterval(state.inputInterval);
       return;
     }
     state.userArr = [];
@@ -66,6 +70,7 @@ export const checkUserInput = () => {
     state.level++;
     state.clicks = 0;
     state.userArr = [];
+    clearInterval(state.inputInterval);
     selectBox();
   }
   updateScore(state.score);
@@ -83,5 +88,16 @@ export const updateMemTime = () => {
     state.isMemViewActive = false;
     showHideMemory();
   }
-  updateMemoryTimer();
-}
+  updateMemoryTimerUI();
+};
+
+// Update input timer
+export const updateInputTimer = () => {
+  const state = getState();
+  state.inputTime -= 1000;
+  if (state.inputTime === 0) {
+    clearInterval(state.inputInterval);
+    endGame();
+  }
+  updateInputTimerUI();
+};

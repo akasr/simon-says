@@ -1,5 +1,5 @@
 import { $, $$ } from "./shortcut.js";
-import { getState } from "./gameLogic.js";
+import { getState, updateInputTimer } from "./gameLogic.js";
 
 const playboard = $(".playboard");
 const tiles = $$(".tile");
@@ -30,7 +30,9 @@ export const selectBox = () => {
     case "flash":
       flashBox(box, "white");
       memArr.push(box.id);
-      $("#memoryContainer").innerHTML += `<div class="memory-tile ${box.id} hide"></div>`;
+      $(
+        "#memoryContainer"
+      ).innerHTML += `<div class="memory-tile ${box.id} hide"></div>`;
       break;
     case "flash-reverse":
       const colors = ["red", "green", "blue", "yellow"].filter(
@@ -38,7 +40,9 @@ export const selectBox = () => {
       );
       const color = colors[Math.floor(Math.random() * colors.length)];
       flashBox(box, color);
-      $("#memoryContainer").innerHTML += `<div class="memory-tile ${box.id} hide"></div>`;
+      $(
+        "#memoryContainer"
+      ).innerHTML += `<div class="memory-tile ${box.id} hide"></div>`;
       memArr.push(box.id);
       break;
     case "flash-ignore":
@@ -54,8 +58,13 @@ export const selectBox = () => {
       break;
     default:
       flashBox(box, "flash");
-      $("#memoryContainer").innerHTML += `<div class="memory-tile ${box.id} hide"></div>`;
+      $(
+        "#memoryContainer"
+      ).innerHTML += `<div class="memory-tile ${box.id} hide"></div>`;
       memArr.push(box.id);
+  }
+  if(state.level > 5) {
+    state.inputInterval = setInterval(updateInputTimer, 1000);
   }
   console.log(memArr);
 };
@@ -96,10 +105,28 @@ export const showHideMemory = () => {
   }
 };
 // Update memory time
-export const updateMemoryTimer = () => {
+export const updateMemoryTimerUI = () => {
   const state = getState();
-  $("#memory-time").textContent = `00:${state.memViewTime / 1000 < 10 ? `0${state.memViewTime / 1000}` : state.memViewTime / 1000}`;
-  if(state.level > 5 ){
-    $("#timer-value").textContent = `00:${state.inputTime / 1000 < 10 ? `0${state.inputTime / 1000}` : state.inputTime / 1000}`;
+  $("#memory-time").textContent = `00:${
+    state.memViewTime / 1000 < 10
+      ? `0${state.memViewTime / 1000}`
+      : state.memViewTime / 1000
+  }`;
+  if (state.level > 5) {
+    $("#timer-value").textContent = `00:${
+      state.inputTime / 1000 < 10
+        ? `0${state.inputTime / 1000}`
+        : state.inputTime / 1000
+    }`;
   }
+};
+
+// Update input timer
+export const updateInputTimerUI = () => {
+  const state = getState();
+  $("#timer-value").textContent = `00:${
+    state.inputTime / 1000 < 10
+      ? `0${state.inputTime / 1000}`
+      : state.inputTime / 1000
+  }`;
 };
