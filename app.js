@@ -34,7 +34,6 @@ tiles.forEach((tile) => {
   tile.on("click", (e) => {
     state.userArr.push(e.target.id);
     checkUserInput();
-    console.log(state.userArr);
   });
 });
 
@@ -48,5 +47,4 @@ $("#memoryContainer").on("click", function () {
     clearInterval(state.memoryInterval);
   }
   showHideMemory();
-  console.log("clicked");
 });

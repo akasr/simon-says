@@ -71,7 +71,6 @@ export const selectBox = () => {
     state.inputTime -= (state.level - 5) % 3 == 0 ? 3000 : 0;
   }
   relayHints();
-  console.log(memArr);
 };
 
 // End Game
