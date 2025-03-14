@@ -1,6 +1,7 @@
 import { $, $$ } from "./shortcut.js";
-import { getState, updateInputTimer } from "./gameLogic.js";
+import { getState } from "./gameLogic.js";
 import { positionBoxes } from "./positionBox.js";
+import { relayHints, updateInputTimer } from "./features.js";
 
 const playboard = $(".playboard");
 const tiles = $$(".tile");
@@ -69,6 +70,7 @@ export const selectBox = () => {
     state.inputInterval = setInterval(updateInputTimer, 1000);
     state.inputTime -= (state.level - 5) % 3 == 0 ? 3000 : 0;
   }
+  relayHints();
   console.log(memArr);
 };
 
@@ -132,4 +134,9 @@ export const updateInputTimerUI = () => {
       ? `0${state.inputTime / 1000}`
       : state.inputTime / 1000
   }`;
+};
+
+// Show the clues
+export const showClue = (clue) => {
+  $("#hint-value").textContent = clue;
 };

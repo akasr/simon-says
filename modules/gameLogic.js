@@ -4,10 +4,10 @@ import {
   updateLives,
   updateLevel,
   updateScore,
-  showHideMemory,
   updateInputTimerUI,
   updateMemoryTimerUI,
 } from "./ui.js";
+import { increaseLife, bonusTime } from "./features.js";
 import { $ } from "./shortcut.js";
 
 export const getState = () => window.app.state;
@@ -66,14 +66,20 @@ const wrongInput = () => {
 export const checkUserInput = () => {
   const state = getState();
   state.clicks++;
-  if (state.userArr[state.clicks - 1] !== state.memArr[state.clicks - 1] && state.currFlashMode !== "flash-reverse") {
+  if (
+    state.userArr[state.clicks - 1] !== state.memArr[state.clicks - 1] &&
+    state.currFlashMode !== "flash-reverse"
+  ) {
     wrongInput();
     return;
-  } else if(state.userArr[state.clicks - 1] !== state.memArr[state.memArr.length - state.clicks] && state.currFlashMode === "flash-reverse") {
+  } else if (
+    state.userArr[state.clicks - 1] !==
+      state.memArr[state.memArr.length - state.clicks] &&
+    state.currFlashMode === "flash-reverse"
+  ) {
     wrongInput();
     return;
-  }
-  else {
+  } else {
     state.score += 1;
   }
 
@@ -91,49 +97,3 @@ export const checkUserInput = () => {
   updateScore(state.score);
   updateLevel(state.level);
 };
-
-// Update memory time
-export const updateMemTime = () => {
-  const state = getState();
-  state.memViewTime -= 1000;
-  state.inputTime -= 2000;
-
-  if (state.memViewTime === 0) {
-    clearInterval(state.memoryInterval);
-    state.isMemViewActive = false;
-    showHideMemory();
-  }
-  updateMemoryTimerUI();
-};
-
-// Update input timer
-export const updateInputTimer = () => {
-  const state = getState();
-  state.inputTime -= 1000;
-  if (state.inputTime === 0) {
-    clearInterval(state.inputInterval);
-    endGame();
-  }
-  updateInputTimerUI();
-};
-
-// Increase life if mistake is not done for last 10 levels
-const increaseLife = () => {
-  const {withoutMistake} = getState();
-  if (withoutMistake === 10) {
-    getState().lives++;
-    updateLives(getState().lives);
-    getState().withoutMistake = 0;
-  }
-}
-
-//Bonus time for every 5th level if no mistake is done
-const bonusTime = () => {
-  const state = getState();
-  if(state.withoutMistake%5 === 0 && state.level > 5) {
-    state.inputTime += 5000;
-    state.memViewTime += 1000;
-    updateInputTimerUI();
-    updateMemoryTimerUI();
-  }
-}

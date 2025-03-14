@@ -5,8 +5,8 @@ import {
   startGame,
   checkUserInput,
   getState,
-  updateMemTime,
 } from "./modules/gameLogic.js";
+import { updateMemTime } from "./modules/features.js";
 
 // Initialize global object
 window.app = {};
