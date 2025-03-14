@@ -1,5 +1,6 @@
 import { $, $$ } from "./shortcut.js";
 import { getState, updateInputTimer } from "./gameLogic.js";
+import { positionBoxes } from "./positionBox.js";
 
 const playboard = $(".playboard");
 const tiles = $$(".tile");
@@ -20,6 +21,7 @@ const flashBox = (box, color) => {
 
 // Select a random box
 export const selectBox = () => {
+  positionBoxes();
   const flashModes = ["flash", "flash-reverse", "flash-ignore"];
   const box = tiles[Math.floor(Math.random() * tiles.length)];
   const flashMode = flashModes[Math.floor(Math.random() * flashModes.length)];
