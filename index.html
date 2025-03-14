@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="main.css" />
 
     <!-- JavaScript -->
-    <script src="app.js" defer></script>
+    <script type="module" src="app.js" defer></script>
   </head>
   <body>
     <!-- Status Board -->
@@ -41,10 +41,9 @@
 
     <!-- Playboard -->
     <main>
-      <div class="memory-container" id="memoryContainer">
-      </div>
+      <div class="memory-container" id="memoryContainer"></div>
       <div class="hint" id="hint">
-        Clue: <span id="hint-value">🤔</span>
+        Clue: <span id="hint-value">🤔 Look into the memory!!</span>
       </div>
       <div class="overlay" id="overlay">
         <div class="message" id="message"></div>
