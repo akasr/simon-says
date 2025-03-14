@@ -60,6 +60,9 @@ h2 {
   width: 4rem;
   height: 4rem;
 }
+.hide {
+  display: none;
+}
 
 /* Hints */
 .hint {
