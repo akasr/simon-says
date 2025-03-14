@@ -25,7 +25,7 @@ export const selectBox = () => {
   const flashMode = flashModes[Math.floor(Math.random() * flashModes.length)];
   const state = getState();
   const { memArr } = state;
-  state.flashMode = flashMode;
+  state.currFlashMode = flashMode;
   switch (flashMode) {
     case "flash":
       flashBox(box, "white");
@@ -47,7 +47,7 @@ export const selectBox = () => {
       break;
     case "flash-ignore":
       if (memArr.length) {
-        flashBox(box, box.id);
+        flashBox(box, "black");
       } else {
         flashBox(box, "white");
         $(
@@ -63,7 +63,7 @@ export const selectBox = () => {
       ).innerHTML += `<div class="memory-tile ${box.id} hide"></div>`;
       memArr.push(box.id);
   }
-  if(state.level > 5) {
+  if (state.level > 5) {
     state.inputInterval = setInterval(updateInputTimer, 1000);
   }
   console.log(memArr);

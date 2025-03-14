@@ -28,7 +28,7 @@
 
 ### 3️⃣ Three Flashing Modes 🔦  
 During sequence playback, boxes will flash in different ways:  
-- ✅ **Same color as the box** → Ignore it.  
+- ✅ **Black flash** → Ignore it.  
 - 🔄 **Different box color** → Input in **reverse order**.  
 - ⚪ **White flash** → Input in **normal order**.  
 - **Tip:** Hints will be displayed for the first **5 levels** to help with this mechanic.  

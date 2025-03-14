@@ -47,21 +47,31 @@ export const startGame = () => {
 };
 
 // Check the user input and update the score and level accordingly OR end the game
+const wrongInput = () => {
+  const state = getState();
+  state.lives--;
+  updateLives(state.lives);
+  if (!state.lives) {
+    endGame();
+    clearInterval(state.memoryInterval);
+    clearInterval(state.inputInterval);
+    return;
+  }
+  state.userArr = [];
+  state.clicks = 0;
+};
+
 export const checkUserInput = () => {
   const state = getState();
   state.clicks++;
-  if (state.userArr[state.clicks - 1] !== state.memArr[state.clicks - 1]) {
-    state.lives--;
-    updateLives(state.lives);
-    if (!state.lives) {
-      endGame();
-      clearInterval(state.memoryInterval);
-      clearInterval(state.inputInterval);
-      return;
-    }
-    state.userArr = [];
-    state.clicks = 0;
-  } else {
+  if (state.userArr[state.clicks - 1] !== state.memArr[state.clicks - 1] && state.currFlashMode !== "flash-reverse") {
+    wrongInput();
+    return;
+  } else if(state.userArr[state.clicks - 1] !== state.memArr[state.memArr.length - state.clicks] && state.currFlashMode === "flash-reverse") {
+    wrongInput();
+    return;
+  }
+  else {
     state.score += 1;
   }
 
