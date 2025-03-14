@@ -11,9 +11,7 @@
 ## 🌀 Unique Gameplay Twists  
 
 ### 1️⃣ Randomized Box Positions 🎭  
-- **After every click**, all boxes **randomly reposition** themselves inside the play area.  
-  - **Desktop:** Moves within a **100vh x 50vw** container.  
-  - **Mobile:** Moves within a **100vw x 80vh** container.  
+- **After every click**, all boxes **randomly reposition** themselves inside the play area.
 - **Tip:** The same color might appear in a **different position** than before!  
 
 ---
