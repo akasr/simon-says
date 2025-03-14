@@ -13,6 +13,8 @@ const State = {
   flashModes: ["flash", "flash-reverse", "flash-ignore"],
   boxPositions: {},
   currFlashMode: null,
+  memoryInterval: null,
+  inputInterval: null,
 };
 
 export default State;

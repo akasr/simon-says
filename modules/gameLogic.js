@@ -4,7 +4,10 @@ import {
   updateLives,
   updateLevel,
   updateScore,
+  updateMemoryTimer,
+  showHideMemory,
 } from "./ui.js";
+import { $ } from "./shortcut.js";
 
 export const getState = () => window.app.state;
 
@@ -19,6 +22,14 @@ const resetState = () => {
   state.isStarted = false;
   state.lives = 1;
   state.isMemViewActive = false;
+  state.memoryInterval = null;
+  state.inputInterval = null;
+  state.memViewTime = 40000;
+  state.inputTime = Infinity;
+  state.isStrict = false;
+  state.boxPositions = {};
+  state.currFlashMode = null;
+  $("#memoryContainer").innerHTML = "";
   updateLevel(state.level);
   updateScore(state.score);
   updateLives(state.lives);
@@ -41,6 +52,7 @@ export const checkUserInput = () => {
     updateLives(state.lives);
     if (!state.lives) {
       endGame();
+      clearInterval(state.memoryInterval);
       return;
     }
     state.userArr = [];
@@ -59,3 +71,17 @@ export const checkUserInput = () => {
   updateScore(state.score);
   updateLevel(state.level);
 };
+
+// Update memory time
+export const updateMemTime = () => {
+  const state = getState();
+  state.memViewTime -= 1000;
+  state.inputTime -= 2000;
+
+  if (state.memViewTime === 0) {
+    clearInterval(state.memoryInterval);
+    state.isMemViewActive = false;
+    showHideMemory();
+  }
+  updateMemoryTimer();
+}

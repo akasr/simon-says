@@ -30,6 +30,7 @@ export const selectBox = () => {
     case "flash":
       flashBox(box, "white");
       memArr.push(box.id);
+      $("#memoryContainer").innerHTML += `<div class="memory-tile ${box.id} hide"></div>`;
       break;
     case "flash-reverse":
       const colors = ["red", "green", "blue", "yellow"].filter(
@@ -37,6 +38,7 @@ export const selectBox = () => {
       );
       const color = colors[Math.floor(Math.random() * colors.length)];
       flashBox(box, color);
+      $("#memoryContainer").innerHTML += `<div class="memory-tile ${box.id} hide"></div>`;
       memArr.push(box.id);
       break;
     case "flash-ignore":
@@ -44,11 +46,15 @@ export const selectBox = () => {
         flashBox(box, box.id);
       } else {
         flashBox(box, "white");
+        $(
+          "#memoryContainer"
+        ).innerHTML += `<div class="memory-tile ${box.id} hide"></div>`;
         memArr.push(box.id);
       }
       break;
     default:
       flashBox(box, "flash");
+      $("#memoryContainer").innerHTML += `<div class="memory-tile ${box.id} hide"></div>`;
       memArr.push(box.id);
   }
   console.log(memArr);
@@ -74,4 +80,26 @@ export const updateLevel = (level) => {
 // Update the lives
 export const updateLives = (lives) => {
   $("#lives-value").textContent = "🫀".repeat(lives);
+};
+
+// Show memory
+export const showHideMemory = () => {
+  const state = getState();
+  if (state.memViewTime === 0 || !state.isMemViewActive) {
+    $$(".memory-tile").forEach((tile) => {
+      tile.classList.add("hide");
+    });
+  } else {
+    $$(".memory-tile").forEach((tile) => {
+      tile.classList.remove("hide");
+    });
+  }
+};
+// Update memory time
+export const updateMemoryTimer = () => {
+  const state = getState();
+  $("#memory-time").textContent = `00:${state.memViewTime / 1000 < 10 ? `0${state.memViewTime / 1000}` : state.memViewTime / 1000}`;
+  if(state.level > 5 ){
+    $("#timer-value").textContent = `00:${state.inputTime / 1000 < 10 ? `0${state.inputTime / 1000}` : state.inputTime / 1000}`;
+  }
 };
