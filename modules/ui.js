@@ -65,6 +65,10 @@ export const selectBox = () => {
   }
   if (state.level > 5) {
     state.inputInterval = setInterval(updateInputTimer, 1000);
+    state.inputTime =
+      (state.level - 5) % 3 == 0
+        ? 59000 - ((state.level - 5) / 3) * 1000
+        : 59000;
   }
   console.log(memArr);
 };
