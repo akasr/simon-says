@@ -58,7 +58,7 @@ During sequence playback, boxes will flash in different ways:
 ---
 
 ### 🏆 Bonus: Earn Extra Memory Time  
-- Every **5 perfect levels** (no mistakes), players **earn +5 seconds** of Memory Time!  
+- Every **5 perfect levels** (no mistakes), players **earn +1 seconds** of Memory Time and **+5 seconds** of Input Time.
 
 ---
 

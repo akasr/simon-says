@@ -78,6 +78,7 @@ export const checkUserInput = () => {
   }
 
   if (state.clicks === state.memArr.length) {
+    bonusTime();
     state.withoutMistake++;
     state.score += 10 * state.level;
     state.level++;
@@ -123,5 +124,16 @@ const increaseLife = () => {
     getState().lives++;
     updateLives(getState().lives);
     getState().withoutMistake = 0;
+  }
+}
+
+//Bonus time for every 5th level if no mistake is done
+const bonusTime = () => {
+  const state = getState();
+  if(state.withoutMistake%5 === 0 && state.level > 5) {
+    state.inputTime += 5000;
+    state.memViewTime += 1000;
+    updateInputTimerUI();
+    updateMemoryTimerUI();
   }
 }
