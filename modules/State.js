@@ -15,6 +15,7 @@ const State = {
   currFlashMode: null,
   memoryInterval: null,
   inputInterval: null,
+  withoutMistake: 0,
 };
 
 export default State;

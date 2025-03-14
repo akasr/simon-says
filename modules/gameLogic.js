@@ -30,6 +30,7 @@ const resetState = () => {
   state.isStrict = false;
   state.boxPositions = {};
   state.currFlashMode = null;
+  state.withoutMistake = 0;
   $("#memoryContainer").innerHTML = "";
   updateLevel(state.level);
   updateScore(state.score);
@@ -50,6 +51,7 @@ export const startGame = () => {
 const wrongInput = () => {
   const state = getState();
   state.lives--;
+  state.withoutMistake = 0;
   updateLives(state.lives);
   if (!state.lives) {
     endGame();
@@ -76,12 +78,14 @@ export const checkUserInput = () => {
   }
 
   if (state.clicks === state.memArr.length) {
+    state.withoutMistake++;
     state.score += 10 * state.level;
     state.level++;
     state.clicks = 0;
     state.userArr = [];
     clearInterval(state.inputInterval);
     selectBox();
+    increaseLife();
   }
   updateScore(state.score);
   updateLevel(state.level);
@@ -111,3 +115,13 @@ export const updateInputTimer = () => {
   }
   updateInputTimerUI();
 };
+
+// Increase life if mistake is not done for last 10 levels
+const increaseLife = () => {
+  const {withoutMistake} = getState();
+  if (withoutMistake === 10) {
+    getState().lives++;
+    updateLives(getState().lives);
+    getState().withoutMistake = 0;
+  }
+}
