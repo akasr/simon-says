@@ -46,7 +46,7 @@ h2 {
 .memory-container {
   padding: 0.5rem;
   background-color: black;
-  height: 5rem;
+  min-height: 5rem;
   display: flex;
   gap: 0.5rem;
   flex-wrap: wrap;
