@@ -5,19 +5,43 @@ import {
   updateInputTimerUI,
   endGame,
   showClue,
+  showHideMemory,
 } from "./ui.js";
 
 // Update memory time
 export const updateMemTime = () => {
   const state = getState();
   state.memViewTime -= 1000;
-  state.inputTime -= 2000;
 
-  if (state.memViewTime === 0) {
+  // Only decrement and check the input timer if level is 5 or higher
+  if (state.level >= 5) {
+    state.inputTime -= 2000;
+
+    // Check the input timer
+    if (state.inputTime <= 0) {
+      // Handle input timer expiration
+      state.inputTime = 0;
+      clearInterval(state.inputInterval);
+      clearInterval(state.memoryInterval);
+      state.isMemViewActive = false;
+      state.memViewTime = 0;
+      showHideMemory();
+      updateInputTimerUI();
+      endGame();
+      return;
+    }
+
+    updateInputTimerUI(); // Only update input timer UI if level >= 5
+  }
+
+  // Handle memory timer
+  if (state.memViewTime <= 0) {
     clearInterval(state.memoryInterval);
     state.isMemViewActive = false;
+    state.memViewTime = 0;
     showHideMemory();
   }
+
   updateMemoryTimerUI();
 };
 
@@ -25,8 +49,18 @@ export const updateMemTime = () => {
 export const updateInputTimer = () => {
   const state = getState();
   state.inputTime -= 1000;
-  if (state.inputTime === 0) {
+  if (state.inputTime <= 0) {
     clearInterval(state.inputInterval);
+
+    // Stop the memory timer if it's still running
+    if (state.isMemViewActive) {
+      clearInterval(state.memoryInterval);
+      state.isMemViewActive = false;
+      state.memViewTime = 0;
+      showHideMemory();
+    }
+
+    state.inputTime = 0;
     endGame();
   }
   updateInputTimerUI();

@@ -98,7 +98,7 @@ export const updateLives = (lives) => {
 // Show memory
 export const showHideMemory = () => {
   const state = getState();
-  if (state.memViewTime === 0 || !state.isMemViewActive) {
+  if (state.memViewTime <= 0 || !state.isMemViewActive) {
     $$(".memory-tile").forEach((tile) => {
       tile.classList.add("hide");
     });
@@ -116,13 +116,6 @@ export const updateMemoryTimerUI = () => {
       ? `0${state.memViewTime / 1000}`
       : state.memViewTime / 1000
   }`;
-  if (state.level > 5) {
-    $("#timer-value").textContent = `00:${
-      state.inputTime / 1000 < 10
-        ? `0${state.inputTime / 1000}`
-        : state.inputTime / 1000
-    }`;
-  }
 };
 
 // Update input timer
